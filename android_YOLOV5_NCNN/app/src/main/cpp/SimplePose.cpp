@@ -16,16 +16,21 @@ SimplePose::SimplePose(AAssetManager *mgr, bool useGPU) {
     PersonNet = new ncnn::Net();
     // opt 需要在加载前设置
     PersonNet->opt.use_vulkan_compute = toUseGPU;  // gpu
-    PersonNet->opt.use_fp16_arithmetic = true;  // fp16运算加速
+    //PersonNet->opt.use_fp16_arithmetic = true;  // fp16运算加速
     PersonNet->load_param(mgr, "person_detector.param");
     PersonNet->load_model(mgr, "person_detector.bin");
 //    LOGD("person_detector");
 
     PoseNet = new ncnn::Net();
     PoseNet->opt.use_vulkan_compute = toUseGPU;  // gpu
-    PoseNet->opt.use_fp16_arithmetic = true;  // fp16运算加速
-    PoseNet->load_param(mgr, "Ultralight-Nano-SimplePose.param");
-    PoseNet->load_model(mgr, "Ultralight-Nano-SimplePose.bin");
+    //PoseNet->opt.use_fp16_arithmetic = true;  // fp16运算加速
+    //PoseNet->opt.use_packing_layout = true;
+    //PoseNet->opt.use_fp16_packed = true;
+
+//    PoseNet->load_param(mgr, "Ultralight-Nano-SimplePose.param");
+//    PoseNet->load_model(mgr, "Ultralight-Nano-SimplePose.bin");
+    PoseNet->load_param(mgr, "mobilepose_nograd.param");
+    PoseNet->load_model(mgr, "mobilepose_nograd.bin");
 //    LOGD("ultralight-nano-simplepose");
 
 }
@@ -55,9 +60,12 @@ int SimplePose::runpose(cv::Mat &roi, int pose_size_w, int pose_size_h, std::vec
     if (toUseGPU) {  // 消除提示
         ex.set_vulkan_compute(toUseGPU);
     }
-    ex.input("data", in);
+//    ex.input("data", in);
+//    ncnn::Mat out;
+//    ex.extract("hybridsequential0_conv7_fwd", out);
+    ex.input("input.1", in);
     ncnn::Mat out;
-    ex.extract("hybridsequential0_conv7_fwd", out);
+    ex.extract("497", out);
     keypoints.clear();
 //    LOGD("pose out.c:%d", out.c);
     for (int p = 0; p < out.c; p++) {
@@ -134,10 +142,34 @@ std::vector<PoseResult> SimplePose::detect(JNIEnv *env, jobject image) {
     std::vector<PoseResult> poseResults;
 //    std::vector<KeyPoint> keyPointList;
 //    std::vector<BoxInfo> boxInfoList;
+
+//Only Find the Yolo bbox w/ Largest Area and Perform SPPE
+    int max_area_id = 0;
+    float max_area = 0;
     for (int i = 0; i < out.h; i++) {
+        float x1, y1, x2, y2;
+        float pw, ph;
+        float area;
+        const float *values = out.row(i);
+        x1 = values[2] * img_w;
+        y1 = values[3] * img_h;
+        x2 = values[4] * img_w;
+        y2 = values[5] * img_h;
+        pw = x2 - x1;
+        ph = y2 - y1;
+        area = pw*ph;
+        if(area>max_area)
+        {
+            max_area = area;
+            max_area_id = i;
+        }
+    }
+
+    if(max_area > 10)
+    {
         float x1, y1, x2, y2, score, label;
         float pw, ph, cx, cy;
-        const float *values = out.row(i);
+        const float *values = out.row(max_area_id);
 
         x1 = values[2] * img_w;
         y1 = values[3] * img_h;
@@ -149,10 +181,10 @@ std::vector<PoseResult> SimplePose::detect(JNIEnv *env, jobject image) {
         cx = x1 + 0.5 * pw;
         cy = y1 + 0.5 * ph;
 
-        x1 = cx - 0.7 * pw;
-        y1 = cy - 0.6 * ph;
-        x2 = cx + 0.7 * pw;
-        y2 = cy + 0.6 * ph;
+        x1 = cx - 0.8 * pw;
+        y1 = cy - 0.7 * ph;
+        x2 = cx + 0.8 * pw;
+        y2 = cy + 0.7 * ph;
 
         score = values[1];
         label = values[0];
@@ -174,8 +206,6 @@ std::vector<PoseResult> SimplePose::detect(JNIEnv *env, jobject image) {
 
         std::vector<KeyPoint> keypoints;
         runpose(roi, pose_size_width, pose_size_height, keypoints, x1, y1);
-//        draw_pose(image, keypoints);
-//        keyPointList.insert(keyPointList.begin(), keypoints.begin(), keypoints.end());
 
         BoxInfo box;
         box.x1 = x1;
@@ -184,15 +214,13 @@ std::vector<PoseResult> SimplePose::detect(JNIEnv *env, jobject image) {
         box.y2 = y2;
         box.label = label;
         box.score = score;
-//        boxInfoList.push_back(box);
+
 
         PoseResult poseResult;
         poseResult.keyPoints = keypoints;
         poseResult.boxInfos = box;
         poseResults.push_back(poseResult);
     }
-//    result.insert(result.begin(), boxes.begin(), boxes.end());
-//    return keyPointList;
+
     return poseResults;
 }
-

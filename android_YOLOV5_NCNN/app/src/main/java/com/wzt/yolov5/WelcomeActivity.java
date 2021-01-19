@@ -30,6 +30,8 @@ public class WelcomeActivity extends AppCompatActivity {
     private Button yolov5sCustomLayer;
     private Button nanoDet;
     private Button yoloFastestXL;
+    private Button btn_start_detect15;
+
 
     private boolean useGPU = false;
 
@@ -197,7 +199,15 @@ public class WelcomeActivity extends AppCompatActivity {
                 WelcomeActivity.this.startActivity(intent);
             }
         });
-
+        btn_start_detect15 = findViewById(R.id.btn_start_detect15);
+        btn_start_detect15.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.USE_MODEL = MainActivity.POSENET_TF;
+                Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
+                WelcomeActivity.this.startActivity(intent);
+            }
+        });
     }
 
 

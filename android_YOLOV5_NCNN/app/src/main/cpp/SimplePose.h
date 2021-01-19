@@ -58,8 +58,8 @@ private:
     ncnn::Net *PoseNet;
     int detector_size_width = 320;
     int detector_size_height = 320;
-    int pose_size_width = 192;
-    int pose_size_height = 256;
+    int pose_size_width = 256;
+    int pose_size_height = 320;
 public:
     static SimplePose *detector;
     static bool hasGPU;

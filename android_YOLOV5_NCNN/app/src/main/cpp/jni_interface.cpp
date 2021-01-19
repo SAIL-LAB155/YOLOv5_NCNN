@@ -215,7 +215,8 @@ Java_com_wzt_yolov5_SimplePose_detect(JNIEnv *env, jclass clazz, jobject image) 
     auto cid = env->GetMethodID(box_cls, "<init>", "([F[FFFFFF)V");
     jobjectArray ret = env->NewObjectArray(result.size(), box_cls, nullptr);
     int i = 0;
-    int KEY_NUM = 17;
+//    int KEY_NUM = 17;
+    int KEY_NUM = 13;
     for (auto &keypoint : result) {
         env->PushLocalFrame(1);
         float x[KEY_NUM];

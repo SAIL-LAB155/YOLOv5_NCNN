@@ -24,32 +24,6 @@ add_library(
         ${OCR_SRC_LIST}
         )
 
-#add_library( # Sets the name of the library.
-#        yolov5
-#
-#        # Sets the library as a shared library.
-#        SHARED
-#
-#        # Provides a relative path to your source file(s).
-#        jni_interface.cpp
-#        YoloV5.cpp
-#        YoloV4.cpp
-#        SimplePose.cpp
-#        Yolact.cpp
-#        ocr/clipper.cpp
-#        ocr/NCNNDBNet.cpp
-#        ocr/ocr.cpp
-#        ocr/RRLib.cpp
-#        ocr/ZUtil.cpp
-#        ENet.cpp
-#        FaceLandmark.cpp
-#        DBFace.cpp
-#        MbnFCN.cpp
-#        MobileNetV3Seg.cpp
-#        YoloV5CustomLayer.cpp
-#        NanoDet.cpp
-#        )
-
 include_directories(
         ncnnvulkan/include
         ocr

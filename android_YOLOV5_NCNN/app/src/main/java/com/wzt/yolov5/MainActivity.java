@@ -15,6 +15,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.LifecycleOwner;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -52,6 +53,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import cheungbh.net.Device;
+import cheungbh.net.Net;
+import cheungbh.net.Person;
 import wseemann.media.FFmpegMediaMetadataRetriever;
 
 public class MainActivity extends AppCompatActivity {
@@ -68,6 +72,9 @@ public class MainActivity extends AppCompatActivity {
     public static int YOLOV5_CUSTOM_LAYER = 11;
     public static int NANODET = 12;
     public static int YOLO_FASTEST_XL = 13;
+    public static int POSENET_TF = 14;
+
+    private Net posenet_tf;
 
     public static int USE_MODEL = MOBILENETV2_YOLOV3_NANO;
     public static boolean USE_GPU = false;
@@ -135,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
         initModel();
         initViewID();
         initViewListener();
+        posenet_tf= new Net(getApplicationContext(), "mobilnetv2False2020-05-11-12-17-45.tflite", Device.GPU);
 
     }
 
@@ -698,7 +706,8 @@ public class MainActivity extends AppCompatActivity {
         // draw bone
         // 0 nose, 1 left_eye, 2 right_eye, 3 left_Ear, 4 right_Ear, 5 left_Shoulder, 6 rigth_Shoulder, 7 left_Elbow, 8 right_Elbow,
         // 9 left_Wrist, 10 right_Wrist, 11 left_Hip, 12 right_Hip, 13 left_Knee, 14 right_Knee, 15 left_Ankle, 16 right_Ankle
-        int[][] joint_pairs = {{0, 1}, {1, 3}, {0, 2}, {2, 4}, {5, 6}, {5, 7}, {7, 9}, {6, 8}, {8, 10}, {5, 11}, {6, 12}, {11, 12}, {11, 13}, {12, 14}, {13, 15}, {14, 16}};
+        //int[][] joint_pairs = {{0, 1}, {1, 3}, {0, 2}, {2, 4}, {5, 6}, {5, 7}, {7, 9}, {6, 8}, {8, 10}, {5, 11}, {6, 12}, {11, 12}, {11, 13}, {12, 14}, {13, 15}, {14, 16}};
+        int[][] joint_pairs = {{1,2},{1,3},{3,5},{2,4},{4,6},{2,8},{1,7},{7,8},{7,9},{9,11},{8,10},{10,12}};
         Canvas canvas = new Canvas(mutableBitmap);
         final Paint keyPointPaint = new Paint();
         keyPointPaint.setAlpha(200);
@@ -712,7 +721,7 @@ public class MainActivity extends AppCompatActivity {
             color = Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256));
             // 画线
             keyPointPaint.setStrokeWidth(5 * mutableBitmap.getWidth() / 800.0f);
-            for (int j = 0; j < 16; j++) {  // 17个点连成16条线
+            for (int j = 0; j < 11; j++) {  // 17个点连成16条线
                 int pl0 = joint_pairs[j][0];
                 int pl1 = joint_pairs[j][1];
                 // 人体左侧改为红线
@@ -728,7 +737,7 @@ public class MainActivity extends AppCompatActivity {
             // 画点
             keyPointPaint.setColor(Color.GREEN);
             keyPointPaint.setStrokeWidth(8 * mutableBitmap.getWidth() / 800.0f);
-            for (int n = 0; n < 17; n++) {
+            for (int n = 0; n < 13; n++) {
                 canvas.drawPoint(keyPoints[i].x[n], keyPoints[i].y[n], keyPointPaint);
             }
             // 画框
@@ -767,6 +776,9 @@ public class MainActivity extends AppCompatActivity {
             result = YOLOv5.detectCustomLayer(image, threshold, nms_threshold);
         } else if (USE_MODEL == NANODET) {
             result = NanoDet.detect(image, threshold, nms_threshold);
+        } else if (USE_MODEL == POSENET_TF) {
+
+            Person result_tf = posenet_tf.estimateSinglePose(image);
         }
         if (result == null && keyPoints == null && yolactMasks == null && enetMasks == null && faceKeyPoints == null) {
             detectCamera.set(false);
@@ -837,6 +849,7 @@ public class MainActivity extends AppCompatActivity {
             mmr.release();
         }
         CameraX.unbindAll();
+        posenet_tf.close();
         super.onDestroy();
     }
 

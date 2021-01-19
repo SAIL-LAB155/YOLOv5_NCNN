@@ -1,0 +1,37 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /media/hkuit104/24d4ed16-ee67-4121-8359-66a09cede5e7/Android/YOLOv5_NCNN/android_YOLOV5_NCNN/posenet/src/main/AndroidManifest.xml:1:1-6:12
+INJECTED from /media/hkuit104/24d4ed16-ee67-4121-8359-66a09cede5e7/Android/YOLOv5_NCNN/android_YOLOV5_NCNN/posenet/src/main/AndroidManifest.xml:1:1-6:12
+INJECTED from /media/hkuit104/24d4ed16-ee67-4121-8359-66a09cede5e7/Android/YOLOv5_NCNN/android_YOLOV5_NCNN/posenet/src/main/AndroidManifest.xml:1:1-6:12
+INJECTED from /media/hkuit104/24d4ed16-ee67-4121-8359-66a09cede5e7/Android/YOLOv5_NCNN/android_YOLOV5_NCNN/posenet/src/main/AndroidManifest.xml:1:1-6:12
+INJECTED from /media/hkuit104/24d4ed16-ee67-4121-8359-66a09cede5e7/Android/YOLOv5_NCNN/android_YOLOV5_NCNN/posenet/src/main/AndroidManifest.xml:1:1-6:12
+INJECTED from /media/hkuit104/24d4ed16-ee67-4121-8359-66a09cede5e7/Android/YOLOv5_NCNN/android_YOLOV5_NCNN/posenet/src/main/AndroidManifest.xml:1:1-6:12
+INJECTED from /media/hkuit104/24d4ed16-ee67-4121-8359-66a09cede5e7/Android/YOLOv5_NCNN/android_YOLOV5_NCNN/posenet/src/main/AndroidManifest.xml:1:1-6:12
+	package
+		ADDED from /media/hkuit104/24d4ed16-ee67-4121-8359-66a09cede5e7/Android/YOLOv5_NCNN/android_YOLOV5_NCNN/posenet/src/main/AndroidManifest.xml:2:3-53
+		INJECTED from /media/hkuit104/24d4ed16-ee67-4121-8359-66a09cede5e7/Android/YOLOv5_NCNN/android_YOLOV5_NCNN/posenet/src/main/AndroidManifest.xml
+		INJECTED from /media/hkuit104/24d4ed16-ee67-4121-8359-66a09cede5e7/Android/YOLOv5_NCNN/android_YOLOV5_NCNN/posenet/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /media/hkuit104/24d4ed16-ee67-4121-8359-66a09cede5e7/Android/YOLOv5_NCNN/android_YOLOV5_NCNN/posenet/src/main/AndroidManifest.xml
+		ADDED from /media/hkuit104/24d4ed16-ee67-4121-8359-66a09cede5e7/Android/YOLOv5_NCNN/android_YOLOV5_NCNN/posenet/src/main/AndroidManifest.xml:1:1-6:12
+		INJECTED from /media/hkuit104/24d4ed16-ee67-4121-8359-66a09cede5e7/Android/YOLOv5_NCNN/android_YOLOV5_NCNN/posenet/src/main/AndroidManifest.xml
+	android:versionCode
+		INJECTED from /media/hkuit104/24d4ed16-ee67-4121-8359-66a09cede5e7/Android/YOLOv5_NCNN/android_YOLOV5_NCNN/posenet/src/main/AndroidManifest.xml
+		ADDED from /media/hkuit104/24d4ed16-ee67-4121-8359-66a09cede5e7/Android/YOLOv5_NCNN/android_YOLOV5_NCNN/posenet/src/main/AndroidManifest.xml:1:1-6:12
+		INJECTED from /media/hkuit104/24d4ed16-ee67-4121-8359-66a09cede5e7/Android/YOLOv5_NCNN/android_YOLOV5_NCNN/posenet/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /media/hkuit104/24d4ed16-ee67-4121-8359-66a09cede5e7/Android/YOLOv5_NCNN/android_YOLOV5_NCNN/posenet/src/main/AndroidManifest.xml:1:11-69
+uses-sdk
+ADDED from /media/hkuit104/24d4ed16-ee67-4121-8359-66a09cede5e7/Android/YOLOv5_NCNN/android_YOLOV5_NCNN/posenet/src/main/AndroidManifest.xml:4:3-15
+INJECTED from /media/hkuit104/24d4ed16-ee67-4121-8359-66a09cede5e7/Android/YOLOv5_NCNN/android_YOLOV5_NCNN/posenet/src/main/AndroidManifest.xml:4:3-15
+INJECTED from /media/hkuit104/24d4ed16-ee67-4121-8359-66a09cede5e7/Android/YOLOv5_NCNN/android_YOLOV5_NCNN/posenet/src/main/AndroidManifest.xml:4:3-15
+INJECTED from /media/hkuit104/24d4ed16-ee67-4121-8359-66a09cede5e7/Android/YOLOv5_NCNN/android_YOLOV5_NCNN/posenet/src/main/AndroidManifest.xml:4:3-15
+INJECTED from /media/hkuit104/24d4ed16-ee67-4121-8359-66a09cede5e7/Android/YOLOv5_NCNN/android_YOLOV5_NCNN/posenet/src/main/AndroidManifest.xml:4:3-15
+	android:targetSdkVersion
+		INJECTED from /media/hkuit104/24d4ed16-ee67-4121-8359-66a09cede5e7/Android/YOLOv5_NCNN/android_YOLOV5_NCNN/posenet/src/main/AndroidManifest.xml
+		ADDED from /media/hkuit104/24d4ed16-ee67-4121-8359-66a09cede5e7/Android/YOLOv5_NCNN/android_YOLOV5_NCNN/posenet/src/main/AndroidManifest.xml:4:3-15
+		INJECTED from /media/hkuit104/24d4ed16-ee67-4121-8359-66a09cede5e7/Android/YOLOv5_NCNN/android_YOLOV5_NCNN/posenet/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /media/hkuit104/24d4ed16-ee67-4121-8359-66a09cede5e7/Android/YOLOv5_NCNN/android_YOLOV5_NCNN/posenet/src/main/AndroidManifest.xml
+		ADDED from /media/hkuit104/24d4ed16-ee67-4121-8359-66a09cede5e7/Android/YOLOv5_NCNN/android_YOLOV5_NCNN/posenet/src/main/AndroidManifest.xml:4:3-15
+		INJECTED from /media/hkuit104/24d4ed16-ee67-4121-8359-66a09cede5e7/Android/YOLOv5_NCNN/android_YOLOV5_NCNN/posenet/src/main/AndroidManifest.xml
